@@ -1,20 +1,29 @@
 # Comando_Sql_FB_MySQL
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*Índice*
+
+FireBird :   linha   10  até  411 
+MySql    :   linha   415 até  635
+Git      :   linha   637 até  700
+Tortoise :   linha   702 até  702
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
                    Comando Básicos de Firebird 
 
 
-para abrir o terminal , pesquise na lupa no windows : firebird 
+para abrir o terminal , pesquise na lupa no windows : firebird, 
 para fechar o terminal : quit ;
 
 ****conecção com o servidor  do firebird****
 connect 'C:\Users\SAMSUNG\Desktop\FB\EX03.FDB' user 'SYSDBA' password 'masterkey';
 
 ---------------------------------------------------------------------------------------------
-*****Criando uma Banco de dados no Firebird**** 
+****Criando uma Banco de dados no Firebird**** 
 
 create database 'C:\Users\SAMSUNG\Desktop\FB\EX03.FDB' user 'SYSDBA' password 'masterkey';
 ----------------------------------------------------------------------------------------------------------------
-****Criando uma tabela no Firebird***
+***Criando uma tabela no Firebird***
 
 CREATE TABLE clientes  (
 id  INTEGER NOT NULL ,
@@ -31,21 +40,22 @@ codigo DM_CODIGO
 ***APAGANDO UMA TABELA***
 
 DROP TABLE CLIENTES ;
---------------------------------------------------------------------------------
-******** Comando   para  ver as tabelas criadas ****
+----------------------------------------------------------------------------------------------------------------------------------------
+**** Comando   para  ver as tabelas criadas ****
+
 show table; 
 
-para ver as colunas de uma tabela específica , basta digitar o nome da tabela :
+para ver as colunas de uma tabela específica , basta digitar o nome da tabela (OBS: usando uma tabela como exemplo chamada:  clientes) :
 
 show table clientes ;
--------------------------------------------------------------------------------
-****COMANDO DE INSERIR REGISTRO  PARA A TABELA ****                                                          OBS: usando uma tabela como exemplo chamada:  clientes
+----------------------------------------------------------------------------------------------------------------------------------------
+**** COMANDO DE INSERIR REGISTRO NA TABELA ****                                                         
 
 INSERT INTO clientes VALUES
 (1,'Lucas'); 
 COMMIT;
 
-***APAGANDO REGISTRO DE UMA TABELA***
+*** APAGANDO REGISTRO DE UMA TABELA ***
 
 DELETE FROM  CLIENTES  
 WHERE ID = '1';
@@ -54,14 +64,17 @@ OU APAGA TUDO :
 
 DELETE FROM CLIENTES;
 
---------------------------------------------------------------------------------
-******CRIANDO UM DOMÍNIO*****
+----------------------------------------------------------------------------------------------------------------------------------------
+**** CRIANDO UM DOMÍNIO ****
+
 CREATE DOMAIN "DM_NOME" VARCHAR (20) NOT NULL;   <- não pode colocar CONSTRAINT
 
-****APAGANDO UM DOMÍNIO****
+**** APAGANDO UM DOMÍNIO ****
+
 DROP DOMAIN "DM_NOME";
 
-***CRIAR DOMAIN ****
+**** CRIAR DOMAIN ****
+
 CREATE DOMAIN DMN_NAO_SIM AS
 CHAR(1) CHARACTER SET WIN1252
 NOT NULL
@@ -80,71 +93,76 @@ NOT NULL
 CHECK (VALUE IN ('FISICA', 'JURIDICA'))
 COLLATE WIN_PTBR;
 
-------------------------------------------------------------------------------------
-*****CRIANDO UMA COLUNA *****
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**** CRIANDO UMA COLUNA ****
+
 ALTER TABLE PRODUTOS
  ADD NOME VARCHAR (20) NOT NULL ;
 
-***** APAGANDO UMA COLUNA ******
+**** APAGANDO UMA COLUNA ****
+
  ALTER TABLE PRODUTOS 
 DROP CODIGO ;
 
-***MODIFICANDO UM TAMANHO DE UMA COLUNA ****
+**** MODIFICANDO UM TAMANHO DE UMA COLUNA ****
+
 OBS: O comando  não será aceito se o novo tamanho for menor que o tamanho atual
+
 alter table CURSOS
 alter NOME type varchar (30);
 
-***ALTERANDO UM NOME DE UM CAMPO ***
+**** ALTERANDO UM NOME DE UM CAMPO ****
 
 ALTER TABLE CURSOS
-ALTER DESCRITION TO DESCRICAO;          <- INFORMAR QUAL É O NOME ANTIGO ANTES
+ALTER DESCRITION TO DESCRICAO;    --------> INFORMAR QUAL É O NOME ANTIGO ANTES
 
-****ALTERANDO O TYPO DE UM CAMPO  DA TABELA *** 
+**** ALTERANDO O TYPO DE UM CAMPO  DA TABELA ****
+
 ALTER TABLE TBLEPG ALTER COLUMN SEXPES TYPE DMN_SEXO;
------------------------------------------------------------------------------------
-
-**** ADICIONADO UMA CHAVE  PRIMÁRIA *** 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**** ADICIONADO UMA CHAVE  PRIMÁRIA ****
 
 ALTER TABLE PRODUTOS
-ADD CONSTRAINT PK_CODIGO         <- nome da sua chave primária 
+ADD CONSTRAINT PK_CODIGO        --------> nome da sua chave primária 
 PRIMARY KEY (CODIGO);
 
-****APAGANDO UMA CHAVE PRIMÁRIA OU CHAVE ESTRANGEIRA ****
+**** APAGANDO UMA CHAVE PRIMÁRIA OU CHAVE ESTRANGEIRA ****
+
 ALTER TABLE PRODUTOS
 DROP CONSTRAINT PK_CODIGO ;
----------------------------------------------------------------------------------------
-*****ADICIONANDO UMA CHAVE ESTRANGEIRA A OUTRA TABELA***** 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**** ADICIONANDO UMA CHAVE ESTRANGEIRA A OUTRA TABELA **** 
 
 ALTER TABLE PRODUTO 
 ADD CONSTRAINT FK_PRO_GRUPO 
 FOREIGN KEY (PRO_GRUPO)
-REFERENCES  GRUPO(GRU_ID);                                     <- NÃO DEIXE ESPAÇOS , DEIXE JUNTOS
+REFERENCES  GRUPO(GRU_ID);         --------> NÃO DEIXE ESPAÇOS , DEIXE JUNTOS
 
-****APAGANDO UMA CHAVE ESTRANGEIRA ****
+**** APAGANDO UMA CHAVE ESTRANGEIRA ****
 
 ALTER TABLE CLIENTES 
-DROP CONSTRAINT FK_PRO_GRUPO;      <- NOME DA CONSTRAINT
+DROP CONSTRAINT FK_PRO_GRUPO;     --------> NOME DA CONSTRAINT
 
----------------------------------------------------------------------------------------
-**** COMANDO UPDATE *********
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**** COMANDO UPDATE ****
+
 UPDATE  CLIENTES
-SET  CLIENTES.NOME = 'RAINHA'     <-- PARA  ALTERAR UM CAMPO DO REGISTRO;
+SET  CLIENTES.NOME = 'RAINHA'     --------> PARA  ALTERAR UM CAMPO DO REGISTRO;
 WHERE  CLIENTES.ID = '3';
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
----------------------------------------------------------------------------------------
-
-***************SELECT**********************
+*************** SELECT ***************
 
 DQL
 
 SELECT * FROM CURSOS ;     --------> mostra todos os registros da sua tabela
 
 SELECT  nome , ano FROM  cursos
-WHERE  ano = '2020'                ------>  filtrar por linha
-ORDER BY  nome DESC ;    ------> mostra o nome , ano , quando os registros forem do ano 2020  e vai ser ordernado  por nome descrecente.
+WHERE  ano = '2020'                -------->  filtrar por linha
+ORDER BY  nome DESC ;    --------> mostra o nome , ano , quando os registros forem do ano 2020  e vai ser ordernado  por nome descrecente.
 
-SELECT ano , nome FROM cursos     --->  filtra por coluna
+SELECT ano , nome FROM cursos     -------->  filtra por coluna
 ORDER BY  ano, nome;
 
 podemos usar operadores relacionais no whare também : = , < , > , !=  <> , <=, >= 
@@ -162,14 +180,14 @@ outros operadores :
 select  ano , nome from cursos
 where ano between '2000' and '2025' ;
 
---------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 * in  significa filtra número  x e y e g 
 
 select ano , nome from cursos
 where ano in ('2000' , '2015' , '2021')
 order by ano , nome;
 
-------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 *Eu posso combinar os dois 
 
@@ -177,7 +195,7 @@ selec * from cursos
 where carga < 30 and totaulas > 20 ;     ----> aperadores lógicos:  and = e , or = ou , not = não 
 
 
----------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 * Filtra registros com as letras parecida ou palavras que começa com determinada letra :  like 
 
 select  *  from cursos
@@ -192,67 +210,74 @@ where nome like '%A' ;
 ou eu posso fazer os dois juntos , obs: essa porcentagem significa carta coringa e ela pode ter qualquer valor ou nenhum : 
 
 select nome from cursos
-where nome like '%a%' ;     -----> pode aparecer Amanda , porque o curinga pode ter qualquer letra e essa condição se encaixa nesse requisito.
+where nome like '%a%' ;     --------> pode aparecer Amanda , porque o curinga pode ter qualquer letra e essa condição se encaixa nesse requisito.
 
 % = _   essas são as duas cartas curingas , a diferença é que o _ obriga a ter pelo o menos um  character o % pode ser uma character ou nada , numeros atende os dois também.
 
 
-o outros comando do select:
+* o outros comando do select:
 
-select max(altura) from pessoas;  ----> vai  selecionar a maior altura 
+select max(altura) from pessoas;   --------> vai  selecionar a maior altura 
 
-selec min(altura) from pessoas;   ----> vai  selecionar a menor  altura 
+selec min(altura) from pessoas;    --------> vai  selecionar a menor  altura 
 
-select count(nomes) from pessoas;  ----> vai contar quantos nomes que tem na tabela
+select count(nomes) from pessoas;  --------> vai contar quantos nomes que tem na tabela
 
-select sum(anos) from cursos;   -----> vai somar os anos da tabela cursos ;
+select sum(anos) from cursos;      --------> vai somar os anos da tabela cursos ;
 
 select distinct nacionalidade from pessoas 
-order by nacionalidade;    ---> vai filtra as nacionalidades e não vai mostrar as nacionalidades repetidas. Com o 'order by nacionalidade' vai colocar de ordem alfabética.
+order by nacionalidade;  --> vai filtra as nacionalidades e não vai mostrar as nacionalidades repetidas. Com o 'order by nacionalidade' vai colocar de ordem alfabética.
 
 select nacionalidade, count(*) from pessoas
-group by nacionalidade  ;  
- ----> vai fazer um agrupamento de nacionalidade sendo que são iguais ou difetentes e também com o comando count() podemos saber quantas nacionalidade tem cada grupo ,detro do count() pode ter qualquer coluna.
+group by nacionalidade  ;  --> vai fazer um agrupamento de nacionalidade sendo que são iguais ou difetentes e também com o comando count() podemos saber quantas nacionalidade tem cada grupo ,detro do count() pode ter qualquer coluna.
 
 select avg(salario) from funcionarios 
-where sexo = 'F' ;    ---> esse avg significa a média , no caso do where  ele é uma condição para que a média seja calculadas dos sálarios das mulheres;
+where sexo = 'F' ;   --> esse avg significa a média , no caso do where  ele é uma condição para que a média seja calculadas dos sálarios das mulheres;
 
 
-SELECT * FROM clientes ;        <-  para  mostrar os registros da tabela 
+SELECT * FROM clientes ;  -------->  para  mostrar os registros da tabela 
 
 SELECT PRODUTO.PRO_ID FROM PRODUTO
 WHERE PRODUTO.PRO_ID >= 1 AND PRODUTO.PRO_ID <= 5 ;
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**** COMANDOS JOINS ****
 
-JUNTANDO DUAS TABELAS COM O JOIN = INNER JOIN
+
+*JUNTANDO DUAS TABELAS COM O JOIN = INNER JOIN:
+
 SELECT * FROM PRODUTO 
 JOIN GRUPO 
-ON PRODUTO.PRO_GRUPO = GRUPO.GRU_ID ;  <- ON OBRIGATÓRIO  PARA NÃO DUPLICAR   OS REGISTROS                                                            
+ON PRODUTO.PRO_GRUPO = GRUPO.GRU_ID ;  -------->  ON OBRIGATÓRIO  PARA NÃO DUPLICAR   OS REGISTROS                                                            
 
-DANDO PRIORIDADE PARA A TABELA  À ESQUERDA AO JOIN :
+*DANDO PRIORIDADE PARA A TABELA  À ESQUERDA AO JOIN: 
+
 SELECT * FROM PRODUTO 
 LEFT JOIN GRUPO
- ON PRODUTO.PRO_GRUPO = GRUPO.GRU_ID ;
+ON PRODUTO.PRO_GRUPO = GRUPO.GRU_ID ;
 
-DANDO PRIORIDADE PARA A TABELA  À  DIREIRA AO JOIN :
+*DANDO PRIORIDADE PARA A TABELA  À  DIREIRA AO JOIN:
+
 SELECT * FROM PRODUTO 
 RIGHT JOIN GRUPO 
 ON PRODUTO.PRO_GRUPO = GRUPO.GRU_ID ;
 
-EU POSSO DAR APELIDO PARA A MINHAS TABELAS :
+*EU POSSO DAR APELIDO PARA A MINHAS TABELAS :
 
 SELECT CLI.NOME , CUR.NOME , CUR.ANO
  FROM CLIENTES AS CLI 
 INNER JOIN CURSOS AS CUR 
 ON CUR.ID = CLI.CURSO_PREFERIDO; 
 
-SEM APELIDOS : 
+*SEM APELIDOS :
+
 SELECT CLIENTES.NOME , CURSOS.NOME , CURSOS.ANO 
 FROM CLIENTES INNER JOIN CURSOS 
 ON CURSOS.ID = CLIENTES.CURSO_PREFERIDO;
 
---------------------------------------------------------------------------------------------------
-******************Cardinalidade  de banco de dados ************************
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**** Cardinalidade  de banco de dados ****
+
 O primeiro passo é  identifiacar qual é o relacionamento de entidades exemplos:
  1 para  1      ou      1 para  n       ou   n para n 
 1 para 1  : a chave primaria do dominada vai ser enviada para o dominante e assim vai surgir o conceito de chave estrangeita (EXEMPLO) :     Marido  recebe chave primária  de Esposa  
@@ -261,10 +286,9 @@ O primeiro passo é  identifiacar qual é o relacionamento de entidades exemplos
 n para n :  nesse contexto vai surgir mais uma entidade , e vai seguir a regra de 1 para n :
 pessoa 1      n compra n    1 produto 
 Depois disso segue a regra de 1 para n 
-----------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+****Exercícios select****
 
-
-*******Exercícios select********
 
 1) Faça uma lista com o nome de todas as mulheres.
 
@@ -320,24 +344,25 @@ R - select count(*) from pessoas
     group by sexo
     having (select count(*) from pessoas where nascimento >=  '2005'  );
 
-****GENERATOR INCREMENT/TRIGGER PARA CHAMAR ESSE GENERATOR ****
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**** GENERATOR INCREMENT/TRIGGER PARA CHAMAR ESSE GENERATOR ****
 
 create generator INc_Produto ;
-set generator INc_Produto to  9;       <--  ESSE NOVE REPRESENTA O SEU ÚLTIMO  NÚMRO DO CAMPO ID, VOCÊ QUE ESCOLHE , E VOCÊ ESCOLHE O NOME
+set generator INc_Produto to  9;  --------> ESSE NOVE REPRESENTA O SEU ÚLTIMO  NÚMRO DO CAMPO ID, VOCÊ QUE ESCOLHE , E VOCÊ ESCOLHE O NOME
 
-set term ^ ;     <- no ibexpert não precisa colocar essa linha
-create trigger PRODUTO_BI for PRODUTO     <- PRODUTO_BI  significa :  B before , I  insert 
-active before insert position 0                          <- FOR  PRODUTO  significa : da tabela  Produto
+set term ^ ;     --------> no ibexpert não precisa colocar essa linha
+create trigger PRODUTO_BI for PRODUTO    --------> PRODUTO_BI  significa :  B before , I  insert 
+active before insert position 0          --------> FOR  PRODUTO  significa : da tabela  Produto
 as
 begin
-if (new.PRO_ID is null) then
-new.PRO_ID = gen_id (INC_PRODUTO ,1);        <- GEN_ID significa o  GENERATOR 
-end^     <- no ibexpert não precisa colocar esse '^'  sinal
-set term ; ^   <- no ibexpert não precisa colocar essa linha
+  if (new.PRO_ID is null) then
+     new.PRO_ID = gen_id (INC_PRODUTO ,1);       --------> GEN_ID significa o  GENERATOR 
+end^            --------> no ibexpert não precisa colocar esse '^'  sinal
+set term ; ^    --------> no ibexpert não precisa colocar essa linha
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**** EXCEÇÃO/TRIGGER PARA CHAMAR ESSA EXCEÇÃO ****
 
-
-***EXCEÇÃO/TRIGGER PARA CHAMAR ESSA EXCEÇÃO
 CREATE  EXCEPTION  EXC_CLIENTES ('NÃO POSSO APAGAR ESSE CLIENTE');
 
 set term ^;   <- no ibexpert não precisa colocar essa linha
@@ -352,22 +377,22 @@ end^    <- no ibexpert não precisa colocar esse '^'  sinal
 
 set term ; ^   <- no ibexpert não precisa colocar essa linha
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**** APAGANDO UMA TRIGGER ****
 
-****APAGANDO UMA TRIGGER ****
 DROP TRIGGER TRG_TBLEPG;
 
-
-**procedures**
-
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**** procedures ****
 
 create procedure calc_comissao
-(servico_indicado float , seu_salario float )     <- input
-returns (Bonus_comissao float , salario_final float)   <- output
+(servico_indicado float , seu_salario float )         -------->input
+returns (Bonus_comissao float , salario_final float)  --------> output
 as
-declare variable  p float;     <- assim que declara uma variável (local)
+declare variable  p float;     --------> assim que declara uma variável (local)
 begin
 
-   p = (20.00/100) ;   <- sequiser  retornar um valor decimal tem que colocar ponto na divisão 
+   p = (20.00/100) ;   --------> sequiser  retornar um valor decimal tem que colocar ponto na divisão 
 
    Bonus_comissao =((servico_indicado + seu_salario)* p) ;
 
@@ -385,26 +410,22 @@ end
     END
 
 
-
-
-
-
-
-
-
---  comandos  de MySql
+**********fIM**********
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 	MySQL
 
-***Criando um Banco de Dados***
+
+**** Criando um Banco de Dados ****
 DDL
 
 create database if not exists Curso_em_Videos
 Default collate utf8_general_ci;
 Default character set utf8
 
-*****Criando uma Tabela******
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**** Criando uma Tabela ****
 DDL
 
 create table if not exists cursos(
@@ -415,66 +436,66 @@ descricao text
 )charset = 'utf8';
 
 
-
-************ Alterando colunas da tabela *****************
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**** Alterando colunas da tabela ****
 DDL 
 
 alter table cursos
-add column profissao varchar(20) after nome;   ----> adicionando mais uma coluna na tabela
+add column profissao varchar(20) after nome;   --------> adicionando mais uma coluna na tabela
 
 alter table cursos
-add remane to programas;    ------> alterando o nome da TABELA 
+add remane to programas;   --------> alterando o nome da TABELA 
 
 alter table cursos
 add primay key(idcursos);  --------> caso esqueça de colocar chave primária
 
 alter table cursos
-modify column profissao varchar(500) not null;   ------> modificando o tipo primitivo e os constraints
+modify column profissao varchar(500) not null;      --------> modificando o tipo primitivo e os constraints
 
 alter table cursos
-change column profissao trabalho varchar(25) first;  ----> trancando o nome e alterando tudo , Obs tem que colocar o nome antigo primeiro 
+change column profissao trabalho varchar(25) first; --------> trancando o nome e alterando tudo , Obs tem que colocar o nome antigo primeiro 
 
-alter table cursos   ------> apagando uma coluna
+alter table cursos   --------> apagando uma coluna
 drop column profissao;
 
-
-
-
-*******Iserindo dados natabela*********
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**** Iserindo dados natabela ****
 DML
 
 insert into cursos values
-('Html',' 40', '2012', 'Para se tornar um dev web'), ----> registros
+('Html',' 40', '2012', 'Para se tornar um dev web'), --------> registros
 ('Css3',' 50', '2013', 'Para se tornar um dev web');
 
 
-********Modificando registro***********
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**** Modificando registro ****
 DML
 
 update cursos
-set nome='Html' , ano = '2020'  ------> esse altera um registro  com base no where 
+set nome='Html' , ano = '2020'  --------> esse altera um registro  com base no where 
 where ano = '2012'
 limit 1;
 
 
-delete from cursos      --> esse apaga a linha completa  em  que o ano é 2013   com no where
+delete from cursos    --------> esse apaga a linha completa  em  que o ano é 2013   com no where
 where ano = '2013'
 limit 1 ; --> indica a quantidade
 
 
-truncate cursos ;  ---->  esse apaga todos os registro da tabela
+truncate cursos ;  -------->  esse apaga todos os registro da tabela
 
-***************select**********************
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**************select**************
 
 DQL
 
-describe cursos  ou  desc cursos -----> mostra todos os componentes/colunas da tabela 
+describe cursos  ou  desc cursos  --------> mostra todos os componentes/colunas da tabela 
 
-select * from cursos; --------> mostra todos os registros da sua tabela
+select * from cursos;  --------> mostra todos os registros da sua tabela
 
 select nome , ano form cursos
-where ano = '2020'                ------>  filtrar por linha
-order by nome desc ;    ------> mostra o nome , ano , quando os registros forem do ano 2020  e vai ser ordernado  por nome descrecente.
+where ano = '2020'      -------->  filtrar por linha
+order by nome desc ;    -------->  mostra o nome , ano , quando os registros forem do ano 2020  e vai ser ordernado  por nome descrecente.
 
 
 select ano , nome from cursos ------->  filtra por coluna
@@ -495,22 +516,22 @@ outros operadores :
 select  ano , nome from cursos
 where ano between '2000' and '2025' ;
 
---------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 * in  significa filtra número  x e y e g 
 
 select ano , nome from cursos
 where ano in ('2000' , '2015' , '2021')
 order by ano , nome;
 
-------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 *Eu posso combinar os dois 
 
 selec * from cursos
-where carga < 30 and totaulas > 20 ;     ----> aperadores lógicos:  and = e , or = ou , not = não 
+where carga < 30 and totaulas > 20 ;    --------> aperadores lógicos:  and = e , or = ou , not = não 
 
 
----------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 * Filtra registros com as letras parecida ou palavras que começa com determinada letra :  like 
 
 select  *  from cursos
@@ -525,34 +546,32 @@ where nome like '%A' ;
 ou eu posso fazer os dois juntos , obs: essa porcentagem significa carta coringa e ela pode ter qualquer valor ou nenhum : 
 
 select nome from cursos
-where nome like '%a%' ;     -----> pode aparecer Amanda , porque o curinga pode ter qualquer letra e essa condição se encaixa nesse requisito.
+where nome like '%a%' ;     --------> pode aparecer Amanda , porque o curinga pode ter qualquer letra e essa condição se encaixa nesse requisito.
 
 % = _   essas são as duas cartas curingas , a diferença é que o _ obriga a ter pelo o menos um  character o % pode ser uma character ou nada , numeros atende os dois também.
 
 
 o outros comando do select:
 
-select max(altura) from pessoas;  ----> vai  selecionar a maior altura 
+select max(altura) from pessoas;  --------> vai  selecionar a maior altura 
 
-selec min(altura) from pessoas;  ----> vai  selecionar a menor  altura 
+selec min(altura) from pessoas;   --------> vai  selecionar a menor  altura 
 
-select count(nomes) from pessoas; ----> vai contar quantos nomes que tem na tabela
+select count(nomes) from pessoas; --------> vai contar quantos nomes que tem na tabela
 
-select sum(anos) from cursos; -----> vai somar os anos da tabela cursos ;
+select sum(anos) from cursos;     --------> vai somar os anos da tabela cursos ;
 
 select distinct nacionalidade from pessoas 
-order by nacionalidade;    ---> vai filtra as nacionalidades e não vai mostrar as nacionalidades repetidas. Com o 'order by nacionalidade' vai colocar de ordem alfabética.
+order by nacionalidade;    --------> vai filtra as nacionalidades e não vai mostrar as nacionalidades repetidas. Com o 'order by nacionalidade' vai colocar de ordem alfabética.
 
 select nacionalidade, count(*) from pessoas
-group by nacionalidade  ;   ----> vai fazer um agrupamento de nacionalidade sendo que são iguais ou difetentes e também com o comando count() podemos saber quantas nacionalidade tem cada grupo ,detro do count() pode ter qualquer coluna.
+group by nacionalidade  ;  --> vai fazer um agrupamento de nacionalidade sendo que são iguais ou difetentes e também com o comando count() podemos saber quantas nacionalidade tem cada grupo ,detro do count() pode ter qualquer coluna.
 
 select avg(salario) from funcionarios 
-where sexo = 'F' ;    ---> esse avg significa a média , no caso do where  ele é uma condição para que a média seja calculadas dos sálarios das mulheres;
+where sexo = 'F' ;   --> esse avg significa a média , no caso do where  ele é uma condição para que a média seja calculadas dos sálarios das mulheres;
 
-
-
-
-*******Exercícios select********
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**************Exercícios select**************
 
 1) Faça uma lista com o nome de todas as mulheres.
 
@@ -608,26 +627,16 @@ R - select count(*) from pessoas
     group by sexo
     having (select count(*) from pessoas where nascimento >=  '2005'  );
 
-   ******************Relacionamentos de bancos de dados************************
-O primeiro passo é  identifiacar qual é o relacionamento de entidades exemplos:
- 1 para  1      ou      1 para  n       ou   n para n 
-1 para 1  : a chave primaria do dominada vai ser enviada para o dominante e assim vai surgir o conceito de chave estrangeita  :     Marido  recebe chave primária  de Esposa
 
-1 para n  :   em regra  pega a chave primária de 1 e  manda para n :  Pai manda a chave primária para os seus filhos.
-
-n para n :  nesse contexto vai surgir mais uma entidade , e vai seguir a regra de 1 para n :
-pessoa 1      n compra n    1 produto 
-Depois disso segue a regra de 1 para n 
---------------------------------------------------------------------------------------------------------------
-Na prática ;
-
-
-**************Fazer backup*****************
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**************Fazer backup**************
 
 no menu server >>> Data Export para exportar >> seleciona o banco de dados  e clique no start Export , após isso vai ser gerado um Dumping ou Dump.
 Dump é o  passo a  passo  para criar o banco de dados que vc tem no seu servidor , para importar é os mesmo passos , mas é para selecionar o Data Import ... seleciona a pasta onde está o seu Dump.
 
--- comandos do Git e tortoise
+****fim****
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- comandos do Git
 
 
 
@@ -655,10 +664,10 @@ quando você criar uma nova branch, ela não vai ter um  repositório remoto,par
 
 se aparecer uma mensagem de fatal  usa este comando que vai da certo : git push --set upstream origin nome_da_sua_branch_que_vc_acabou_de_criar.
 
------------------------------------------------------------------------
-Comandos do Git
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* Outros Comandos
 
-git pull <- comparar as modificações do seu último repositório
+git pull --------> comparar as modificações do seu último repositório
 
 git config --glogal user.name "lucas"
 
@@ -666,36 +675,37 @@ git config --global user user.email "email"
 
 git config --global merge.tool tortoisemerge
 
-git config --global mergetool.tortoisemerge.cmd ""  <-- local onde vc instalou o tortoise
+git config --global mergetool.tortoisemerge.cmd ""  --------> local onde vc instalou o tortoise
 
 git clone  http://link.git  ou se não der certo foi por causa da permissao, você terá que colocar o seu usuário do gitea e o @ antes do seu usuário exemplo : http://@usuário_do_gitealink.git
 
 git checkout working
 
-git branch treinamento   < - cirando uma branch
+git branch treinamento  --------> cirando uma branch
 
-git stash  <- reseta/suspende  as modificações do começo  e pega todas as modificações  que eu fiz e salva (recorta) até o último commit.
+git stash  --------> reseta/suspende  as modificações do começo  e pega todas as modificações  que eu fiz e salva (recorta) até o último commit.
 
-git stash apply  <- ele aplica as modificações que o git stash suspendeu que eu fiz
+git stash apply  --------> ele aplica as modificações que o git stash suspendeu que eu fiz
 
-git reset --hard  <- vai apagar tudo no seu repositório local até o seu último pull
+git reset --hard --------> vai apagar tudo no seu repositório local até o seu último pull
 
 git reset vai apagar o seu commit e vai voltar (nao usar)
 
 gitk    semelhante ao git log 
 
-na branch de talentos  -> git merge lucas_victor   para unir as branch.
+na branch de talentos --------> git merge lucas_victor   para unir as branch.
 
 git branch -d <branch>  Exclua um branch no repositório local , não apaga no remoto,para apagar no repositório remoto é muito perigoso , pois tem que informar o caminho, melhor não usar esse comando
 
 git config --list  para listar as configurações do seu git
  
----------------------------------------------------------------------------
+****fim****
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 TortoiseGit
 
 /*Resolvendo Conflitos*/
 
 case de um conflito , vc terá que resolver com o tortoise e depois disso vc vai fazer um commit,  de preferença com o git gui , depois vc vai colocar o comando de git pull para atualizar (caso de mais conflitos  vc resolve de novo ) e depois disso vc vai usar o comando de git push
 
-/**/
+****fim****
 
