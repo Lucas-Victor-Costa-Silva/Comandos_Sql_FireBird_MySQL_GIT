@@ -1,0 +1,68 @@
+Conectando ao repositório remoto
+
+git init
+
+git add README.md
+
+git commit -m "first commit"
+
+git branch -M main
+
+git remote add origin https://Local_do_Seu_repositório_no_GitHub.git
+
+git push -u origin main
+
+OBS : 
+
+qaundo você for criar uma nova branch , cria com outro nome , não repete o mesmo nome da sua branch que vc apagou no local.
+ 
+depois disso você tem que dar o seu primeiro commit (adiciona qualquer arquivo e  usa o 'git gui para add as modificacoes' e depois você vai adicionar o 'commit').
+
+quando você criar uma nova branch, ela não vai ter um  repositório remoto,para resolver isso só basta dar um git push (não pode dar o comando git pull, pois não vai ter uma conexão com o remoto , pois não existe repositório remoto dessa branch). 
+
+se aparecer uma mensagem de fatal  usa este comando que vai da certo : git push --set upstream origin nome_da_sua_branch_que_vc_acabou_de_criar.
+
+-----------------------------------------------------------------------
+Comandos do Git
+
+git pull <- comparar as modificações do seu último repositório
+
+git config --glogal user.name "lucas"
+
+git config --global user user.email "email"
+
+git config --global merge.tool tortoisemerge
+
+git config --global mergetool.tortoisemerge.cmd ""  <-- local onde vc instalou o tortoise
+
+git clone  http://link.git  ou se não der certo foi por causa da permissao, você terá que colocar o seu usuário do gitea e o @ antes do seu usuário exemplo : http://@usuário_do_gitealink.git
+
+git checkout working
+
+git branch treinamento   < - cirando uma branch
+
+git stash  <- reseta/suspende  as modificações do começo  e pega todas as modificações  que eu fiz e salva (recorta) até o último commit.
+
+git stash apply  <- ele aplica as modificações que o git stash suspendeu que eu fiz
+
+git reset --hard  <- vai apagar tudo no seu repositório local até o seu último pull
+
+git reset vai apagar o seu commit e vai voltar (nao usar)
+
+gitk    semelhante ao git log 
+
+na branch de talentos  -> git merge lucas_victor   para unir as branch.
+
+git branch -d <branch>  Exclua um branch no repositório local , não apaga no remoto,para apagar no repositório remoto é muito perigoso , pois tem que informar o caminho, melhor não usar esse comando
+
+git config --list  para listar as configurações do seu git
+ 
+---------------------------------------------------------------------------
+TortoiseGit
+
+/*Resolvendo Conflitos*/
+
+case de um conflito , vc terá que resolver com o tortoise e depois disso vc vai fazer um commit,  de preferença com o git gui , depois vc vai colocar o comando de git pull para atualizar (caso de mais conflitos  vc resolve de novo ) e depois disso vc vai usar o comando de git push
+
+/**/
+

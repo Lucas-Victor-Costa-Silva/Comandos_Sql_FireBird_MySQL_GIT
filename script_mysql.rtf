@@ -1,0 +1,236 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1046{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang22\par
+\tab MySQL\par
+\par
+***Criando um Banco de Dados***\par
+DDL\par
+\par
+create database if not exists Curso_em_Videos\par
+Default collate utf8_general_ci;\par
+Default character set utf8\par
+\par
+*****Criando uma Tabela******\par
+DDL\par
+\par
+create table if not exists cursos(\par
+nome varchar (20),\par
+carga int unsigned,\par
+ano dataimes,\par
+descricao text\par
+)charset = 'utf8';\par
+\par
+\par
+\par
+************ Alterando colunas da tabela *****************\par
+DDL \par
+\par
+alter table cursos\par
+add column profissao varchar(20) after nome;   ----> adicionando mais uma coluna na tabela\par
+\par
+alter table cursos\par
+add remane to programas;    ------> alterando o nome da TABELA \par
+\par
+alter table cursos\par
+add primay key(idcursos);  --------> caso esque\'e7a de colocar chave prim\'e1ria\par
+\par
+alter table cursos\par
+modify column profissao varchar(500) not null;   ------> modificando o tipo primitivo e os constraints\par
+\par
+alter table cursos\par
+change column profissao trabalho varchar(25) first;  ----> trancando o nome e alterando tudo , Obs tem que colocar o nome antigo primeiro \par
+\par
+alter table cursos   ------> apagando uma coluna\par
+drop column profissao;\par
+\par
+\par
+\par
+\par
+*******Iserindo dados natabela*********\par
+DML\par
+\par
+insert into cursos values\par
+('Html',' 40', '2012', 'Para se tornar um dev web'), ----> registros\par
+('Css3',' 50', '2013', 'Para se tornar um dev web');\par
+\par
+\par
+********Modificando registro***********\par
+DML\par
+\par
+update cursos\par
+set nome='Html' , ano = '2020'  ------> esse altera um registro  com base no where \par
+where ano = '2012'\par
+limit 1;\par
+\par
+\par
+delete from cursos      --> esse apaga a linha completa  em  que o ano \'e9 2013   com no where\par
+where ano = '2013'\par
+limit 1 ; --> indica a quantidade\par
+\par
+\par
+truncate cursos ;  ---->  esse apaga todos os registro da tabela\par
+\par
+***************select**********************\par
+\par
+DQL\par
+\par
+describe cursos  ou  desc cursos -----> mostra todos os componentes/colunas da tabela \par
+\par
+select * from cursos; --------> mostra todos os registros da sua tabela\par
+\par
+select nome , ano form cursos\par
+where ano = '2020'                ------>  filtrar por linha\par
+order by nome desc ;    ------> mostra o nome , ano , quando os registros forem do ano 2020  e vai ser ordernado  por nome descrecente.\par
+\par
+\par
+select ano , nome from cursos ------->  filtra por coluna\par
+order by ano, nome;\par
+\par
+podemos usar operadores relacionais no whare tamb\'e9m : = , < , > , !=  <> , <=, >= \par
+\par
+select nome , profissao from cursos\par
+where  nascimento >=  '2022' \par
+order by nome;\par
+\par
+\par
+outros operadores :\par
+\par
+\par
+* between  significa filtra  um n\'famero x at\'e9 y\par
+\par
+select  ano , nome from cursos\par
+where ano between '2000' and '2025' ;\par
+\par
+--------------------------------\par
+* in  significa filtra n\'famero  x e y e g \par
+\par
+select ano , nome from cursos\par
+where ano in ('2000' , '2015' , '2021')\par
+order by ano , nome;\par
+\par
+------------------------------\par
+\par
+*Eu posso combinar os dois \par
+\par
+selec * from cursos\par
+where carga < 30 and totaulas > 20 ;     ----> aperadores l\'f3gicos:  and = e , or = ou , not = n\'e3o \par
+\par
+\par
+---------------------------\par
+* Filtra registros com as letras parecida ou palavras que come\'e7a com determinada letra :  like \par
+\par
+select  *  from cursos\par
+where nome like 'P%' ;\par
+\par
+\par
+ou eu posso fazer o inverso , filtrar regitros com letrar terminadas com x letras \par
+\par
+select nome from cursos\par
+where nome like '%A' ;  \par
+\par
+ou eu posso fazer os dois juntos , obs: essa porcentagem significa carta coringa e ela pode ter qualquer valor ou nenhum : \par
+\par
+select nome from cursos\par
+where nome like '%a%' ;     -----> pode aparecer Amanda , porque o curinga pode ter qualquer letra e essa condi\'e7\'e3o se encaixa nesse requisito.\par
+\par
+% = _   essas s\'e3o as duas cartas curingas , a diferen\'e7a \'e9 que o _ obriga a ter pelo o menos um  character o % pode ser uma character ou nada , numeros atende os dois tamb\'e9m.\par
+\par
+\par
+o outros comando do select:\par
+\par
+select max(altura) from pessoas;  ----> vai  selecionar a maior altura \par
+\par
+selec min(altura) from pessoas;  ----> vai  selecionar a menor  altura \par
+\par
+select count(nomes) from pessoas; ----> vai contar quantos nomes que tem na tabela\par
+\par
+select sum(anos) from cursos; -----> vai somar os anos da tabela cursos ;\par
+\par
+select distinct nacionalidade from pessoas \par
+order by nacionalidade;    ---> vai filtra as nacionalidades e n\'e3o vai mostrar as nacionalidades repetidas. Com o 'order by nacionalidade' vai colocar de ordem alfab\'e9tica.\par
+\par
+select nacionalidade, count(*) from pessoas\par
+group by nacionalidade  ;   ----> vai fazer um agrupamento de nacionalidade sendo que s\'e3o iguais ou difetentes e tamb\'e9m com o comando count() podemos saber quantas nacionalidade tem cada grupo ,detro do count() pode ter qualquer coluna.\par
+\par
+select avg(salario) from funcionarios \par
+where sexo = 'F' ;    ---> esse avg significa a m\'e9dia , no caso do where  ele \'e9 uma condi\'e7\'e3o para que a m\'e9dia seja calculadas dos s\'e1larios das mulheres;\par
+\par
+\par
+\par
+\par
+*******Exerc\'edcios select********\par
+\par
+1) Fa\'e7a uma lista com o nome de todas as mulheres.\par
+\par
+R- select nome from pessoas\par
+   where sexo = 'F';\par
+\par
+2) Fa\'e7a uma lista com os dados de todos aqueles que nasceram entre  01/Jan/2000 e 31/Dez/2015.\par
+\par
+R- select * from pessoas\par
+   where ano between '2000' and '2015' ;\par
+\par
+3) Fa\'e7a uma lista com o nome de todos os homens que trabalham como Programadores.\par
+\par
+R- select nome from pessoas \par
+   where sexo = 'M' and profissao = 'Programadores';\par
+\par
+4) Fa\'e7a uma lista com os dados de todas as mulheres que nasceram no Brasil e que t\'eam seu nome iniciando com a letra J.\par
+\par
+R- select * from pessoas\par
+   where sexo = 'F' and nacionalidade = 'Brasil' and nome like 'J%';\par
+\par
+5) Fa\'e7a uma lista com o nome e nacionalidade de todos os homens que t\'eam Silva no nome, n\'e3o nasceram no Brasil e pesam menos de 100 KG.\par
+\par
+R - select nome , nacionalidade from pessoas\par
+    where sexo = 'M' and nome like '&_Silva&' and not nacionalidade 'Brasil' and peso > 100;\par
+\par
+6) Fa\'e7a uma lista que mostra qual \'e9 a maior altura entre os homens que moram no Brasil.\par
+\par
+R- select max(altura) from pessoas\par
+   where sexo = 'M' and nacionalidade 'Brasil';\par
+\par
+7) Fa\'e7a uma lista que mostra qual \'e9 o menor peso entre as meninas que nasceram fora do Brasil e entre 01/01/1990 e 31/12/2000.\par
+\par
+R - select min(peso) from pessoas\par
+    where sexo = 'F' and nacionalidade != 'Brasil' and nascimento between '1990' and '2000';\par
+\par
+8) Fa\'e7a uma lista que mostra quantas mulheres t\'eam mais de 1.90m.\par
+\par
+R- select count(altura) from pessoas\par
+   where sexo = 'F' and altura > '1.90'\par
+\par
+*****Exerc\'edcios de select usando agrupamentos*******\par
+\par
+1) Fa\'e7a uma lista com as profiss\'f5es dos meninos e seus respectivos quantitativos.\par
+\par
+R- select profissao , count(*) from pessoas\par
+   where sexo = 'M'\par
+   group by profissao;\par
+\par
+2) Fa\'e7a uma lista que mostre quantos homens e mulheres nasceram ap\'f3s 01/01/2005\par
+\par
+R - select count(*) from pessoas\par
+    group by sexo\par
+    having (select count(*) from pessoas where nascimento >=  '2005'  );\par
+\par
+   ******************Relacionamentos de bancos de dados************************\par
+O primeiro passo \'e9  identifiacar qual \'e9 o relacionamento de entidades exemplos:\par
+ 1 para  1      ou      1 para  n       ou   n para n \par
+1 para 1  : a chave primaria do dominada vai ser enviada para o dominante e assim vai surgir o conceito de chave estrangeita  :     Marido  recebe chave prim\'e1ria  de Esposa\par
+\par
+1 para n  :   em regra  pega a chave prim\'e1ria de 1 e  manda para n :  Pai manda a chave prim\'e1ria para os seus filhos.\par
+\par
+n para n :  nesse contexto vai surgir mais uma entidade , e vai seguir a regra de 1 para n :\par
+pessoa 1      n compra n    1 produto \par
+Depois disso segue a regra de 1 para n \par
+--------------------------------------------------------------------------------------------------------------\par
+Na pr\'e1tica ;\par
+\par
+\par
+**************Fazer backup*****************\par
+\par
+no menu server >>> Data Export para exportar >> seleciona o banco de dados  e clique no start Export , ap\'f3s isso vai ser gerado um Dumping ou Dump.\par
+Dump \'e9 o  passo a  passo  para criar o banco de dados que vc tem no seu servidor , para importar \'e9 os mesmo passos , mas \'e9 para selecionar o Data Import ... seleciona a pasta onde est\'e1 o seu Dump.\par
+}
+ 

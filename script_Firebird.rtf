@@ -1,0 +1,394 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1046{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green176\blue80;\red255\green0\blue0;\red0\green77\blue187;\red128\green100\blue162;\red0\green0\blue0;}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang22                    \cf1 Comando B\'e1sicos de Firebird \par
+\cf0\par
+\par
+\cf2 para abrir o terminal , pesquise na lupa no windows : firebird \par
+para fechar o terminal \cf0 : \cf3 quit ;\cf0\par
+\par
+\cf1 ****conec\'e7\'e3o com o servidor  do firebird****\cf0\par
+\cf3 connect 'C:\\Users\\SAMSUNG\\Desktop\\FB\\EX03.FDB' user 'SYSDBA' password 'masterkey';\cf0\par
+\par
+---------------------------------------------------------------------------------------------\par
+\cf1 *****Criando uma Banco de dados no Firebird**** \cf0\par
+\par
+\cf3 create database 'C:\\Users\\SAMSUNG\\Desktop\\FB\\EX03.FDB' user 'SYSDBA' password 'masterkey';\par
+\cf0 ----------------------------------------------------------------------------------------------------------------\par
+\cf1 ****Criando uma tabela no Firebird***\cf0\par
+\par
+\cf3 CREATE TABLE \cf0 clientes \cf3  (\par
+\cf0 id  \cf3 INTEGER NOT NULL ,\par
+\cf0 nome \cf3 VARCHAR (30)\par
+);\cf0\par
+\par
+\cf2 ou usando dom\'ednios :\cf0\par
+\par
+\cf3 CREATE TABLE \cf0 CLIENTES\cf3  (\cf0\par
+nome \cf3 DM_NOME,\par
+\cf0 codigo \cf3 DM_CODIGO\par
+);\par
+\par
+\cf1 ***APAGANDO UMA TABELA***\par
+\par
+\cf3 DROP TABLE \cf0 CLIENTES \cf3 ;\cf0\par
+--------------------------------------------------------------------------------\par
+\cf1 ******** Comando   para  ver as tabelas criadas ****\par
+\cf3 show table; \cf0\par
+\par
+\cf2 para ver as colunas de uma tabela espec\'edfica , basta digitar o nome da tabela :\cf0\par
+\par
+\cf3 show table \cf0 clientes \cf3 ;\cf0\par
+-------------------------------------------------------------------------------\par
+\cf1 ****COMANDO DE INSERIR REGISTRO  PARA A TABELA ****                                                          \cf2 OBS: usando uma tabela como exemplo chamada:  clientes\cf0\par
+\par
+\cf3 INSERT INTO \cf0 clientes \cf3 VALUES\par
+\cf0 (1,'Lucas'); \par
+\cf3 COMMIT;\par
+\par
+\cf1 ***APAGANDO REGISTRO DE UMA TABELA***\par
+\cf3\par
+DELETE FROM  \cf0 CLIENTES\cf3   \par
+WHERE ID = '\cf0 1\cf3 ';\par
+\par
+\cf2 OU APAGA TUDO :\par
+\cf3\par
+DELETE FROM \cf0 CLIENTES\cf3 ;\cf0\par
+\par
+--------------------------------------------------------------------------------\par
+\cf1 ******CRIANDO UM DOM\'cdNIO*****\cf0\par
+\cf3 CREATE DOMAIN \cf0 "DM_NOME" \cf3 VARCHAR (20) NOT NULL;   \cf2 <- n\'e3o pode colocar CONSTRAINT\cf0\par
+\par
+\cf1 ****APAGANDO UM DOM\'cdNIO****\par
+\cf3 DROP DOMAIN "\cf0 DM_NOME\cf3 ";\par
+\par
+\cf4 ***CRIAR DOMAIN ****\cf3\par
+CREATE DOMAIN \cf5 DMN_NAO_SIM \cf3 AS\par
+CHAR(\cf5 1\cf3 ) CHARACTER SET WIN1252\par
+NOT NULL\par
+CHECK (VALUE IN ('\cf5 S\cf3 ', '\cf5 N\cf3 '))\par
+COLLATE WIN_PTBR;\par
+\par
+CREATE DOMAIN DMN\cf0 _NAO_SIM \cf3 AS\par
+CHAR(\cf0 1\cf3 ) CHARACTER SET WIN1252\par
+NOT NULL\par
+CHECK (VALUE IN ('\cf0 S\cf3 ', '\cf0 N\cf3 '))\par
+COLLATE WIN_PTBR;\par
+\par
+CREATE DOMAIN DMN\cf0 _FISICA_JURIDICA \cf3 AS\par
+CHAR(\cf0 1\cf3 ) CHARACTER SET WIN1252\par
+NOT NULL\par
+CHECK (VALUE IN ('\cf0 FISICA\cf3 ', '\cf0 JURIDICA\cf3 '))\par
+COLLATE WIN_PTBR;\cf0\par
+\cf3\par
+\cf0 ------------------------------------------------------------------------------------\par
+\cf1 *****CRIANDO UMA COLUNA *****\cf3\par
+ALTER TABLE \cf0 PRODUTOS\par
+\cf3  ADD \cf0 NOME\cf3  VARCHAR (20) NOT NULL ;\par
+\cf0\par
+\cf1 ***** APAGANDO UMA COLUNA ******\par
+ \cf3 ALTER TABLE \cf0 PRODUTOS \par
+\cf3 DROP\cf0  CODIGO \cf3 ;\par
+\par
+\cf1 ***MODIFICANDO UM TAMANHO DE UMA COLUNA ****\par
+\cf2 OBS: O comando  n\'e3o ser\'e1 aceito se o novo tamanho for menor que o tamanho atual\par
+\cf3 alter table \cf0 CURSOS\cf3\par
+alter \cf0 NOME\cf3  type varchar (\cf0 30\cf3 );\par
+\par
+\cf1 ***ALTERANDO UM NOME DE UM CAMPO ***\par
+\par
+\cf3 ALTER TABLE \cf0 CURSOS\cf3\par
+ALTER \cf0 DESCRITION \cf3 TO \cf0 DESCRICAO\cf3 ;          \cf2 <- INFORMAR QUAL \'c9 O NOME ANTIGO ANTES\par
+\par
+\cf4 ****ALTERANDO O TYPO DE UM CAMPO  DA TABELA *** \cf2\par
+\cf3 ALTER TABLE \cf0 TBLEPG \cf3 ALTER\cf0  \cf3 COLUMN\cf0  SEXPES \cf3 TYPE\cf0  DMN_SEXO\cf3 ;\par
+\cf0 -----------------------------------------------------------------------------------\par
+\par
+\cf1 **** ADICIONADO UMA CHAVE  PRIM\'c1RIA *** \par
+\cf0\par
+\cf3 ALTER TABLE \cf0 PRODUTOS\par
+\cf3 ADD CONSTRAINT \cf0 PK_CODIGO         \cf2 <- nome da sua chave prim\'e1ria \par
+\cf3 PRIMARY KEY (\cf0 CODIGO\cf3 );\par
+\par
+\cf1 ****APAGANDO UMA CHAVE PRIM\'c1RIA OU CHAVE ESTRANGEIRA ****\par
+\cf3 ALTER TABLE \cf0 PRODUTOS\par
+\cf3 DROP CONSTRAINT \cf0 PK_CODIGO \cf3 ;\par
+\cf0 ---------------------------------------------------------------------------------------\par
+\cf1 *****ADICIONANDO UMA CHAVE ESTRANGEIRA A OUTRA TABELA***** \par
+\par
+\cf3 ALTER TABLE \cf0 PRODUTO\cf3  \par
+ADD CONSTRAINT \cf0 FK_PRO_GRUPO \cf3\par
+FOREIGN KEY (\cf0 PRO_GRUPO\cf3 )\par
+REFERENCES  \cf0 GRUPO\cf3 (\cf0 GRU_ID\cf3 );                                     \cf2 <- N\'c3O DEIXE ESPA\'c7OS , DEIXE JUNTOS\cf3\par
+\par
+\cf1 ****APAGANDO UMA CHAVE ESTRANGEIRA ****\par
+\cf3\par
+ALTER TABLE \cf0 CLIENTES \par
+\cf3 DROP CONSTRAINT \cf0 FK_PRO_GRUPO\cf3 ;      \cf2 <- NOME DA CONSTRAINT\cf3\par
+\par
+\cf0 ---------------------------------------------------------------------------------------\par
+\cf1 **** COMANDO UPDATE *********\cf0\par
+\cf3 UPDATE \cf0  CLIENTES\par
+\cf3 SET\cf0   CLIENTES.NOME \cf3 = '\cf0 RAINHA\cf3 '  \cf0    \cf2 <-- PARA  ALTERAR UM CAMPO DO REGISTRO;\par
+\cf3 WHER\cf0 E  CLIENTES.ID \cf3 = '\cf0 3\cf3 ';\par
+\par
+\par
+\cf0 ---------------------------------------------------------------------------------------\par
+\cf3\par
+\cf1 ***************SELECT**********************\cf0\par
+\par
+\cf1 DQL\cf0\par
+\par
+\cf3 SELECT * FROM \cf0 CURSOS \cf3 ;     \cf2 --------> mostra todos os registros da sua tabela\cf0\par
+\par
+\cf3 SELECT \cf0  nome , ano \cf3 FROM \cf0  cursos\par
+\cf3 WHERE \cf0  ano \cf3 = '\cf0 2020\cf2 '                ------>  filtrar por linha\par
+\cf3 ORDER BY  \cf0 nome \cf3 DESC ;    \cf2 ------> mostra o nome , ano , quando os registros forem do ano 2020  e vai ser ordernado  por nome descrecente.\par
+\cf0\par
+\cf3 SELECT \cf0 ano \cf3 , \cf0 nome \cf3 FROM\cf0  cursos     \cf2 --->  filtra por coluna\cf0\par
+\cf3 ORDER BY  \cf0 ano\cf3 , \cf0 nome\cf3 ;\par
+\cf0\par
+\cf1 podemos usar operadores relacionais no whare tamb\'e9m : = , < , > , !=  <> , <=, >= \par
+\cf0\par
+\cf3 SELECT\cf0   nome \cf3 ,\cf0  profissao \cf3 FROM\cf0  cursos\par
+\cf3 WHERE\cf0   nascimento \cf3 >=  '\cf0 2022\cf3 ' \par
+ORDER BY \cf0 nome\cf3 ;\par
+\cf0\par
+\par
+\cf1 outros operadores :\cf0\par
+\par
+\par
+\cf1 * between  significa filtra  um n\'famero x at\'e9 y\cf0\par
+\par
+\cf3 select\cf0   ano \cf3 , \cf0 nome \cf3 from \cf0 cursos\par
+\cf3 where\cf0  ano \cf3 between '\cf0 2000\cf3 ' and '\cf0 2025\cf3 ' ;\par
+\cf0\par
+--------------------------------\par
+\cf1 * in  significa filtra n\'famero  x e y e \fs24 g\fs22  \cf0\par
+\par
+\cf3 select \cf0 ano \cf3 ,\cf0  nome \cf3 from\cf0  cursos\par
+\cf3 where\cf0  ano in \cf3 (\cf0 '2000\cf3 ' , '\cf0 2015\cf3 ' , '\cf0 2021\cf3 ')\par
+order by \cf0 ano \cf3 ,\cf0  nome\cf3 ;\par
+\cf0\par
+------------------------------\par
+\par
+\cf1 *Eu posso combinar os dois \cf0\par
+\par
+\cf3 selec * from \cf0 cursos\par
+\cf3 where \cf0 carga \cf3 <\cf0  30 \cf3 and \cf0 totaulas \cf3 >\cf0  20 \cf3 ;\cf0      \cf2 ----> aperadores l\'f3gicos:  and = e , or = ou , not = n\'e3o \cf0\par
+\par
+\par
+---------------------------\par
+\cf1 * Filtra registros com as letras parecida ou palavras que come\'e7a com determinada letra :  like \par
+\cf0\par
+\cf3 select  *  from \cf0 cursos\par
+\cf3 where\cf0  nome \cf3 like '\cf0 P\cf3 %' ;\par
+\cf0\par
+\par
+ou eu posso fazer o inverso , filtrar regitros com letrar terminadas com x letras \par
+\par
+\cf3 select\cf0  nome \cf3 from\cf0  cursos\par
+\cf3 where\cf0  nome \cf3 like\cf0  \cf3 '%\cf0 A\cf3 ' ;  \cf0\par
+\par
+\cf1 ou eu posso fazer os dois juntos , obs: essa porcentagem significa carta coringa e ela pode ter qualquer valor ou nenhum : \cf0\par
+\par
+\cf3 select \cf0 nome \cf3 from\cf0  cursos\par
+\cf3 where\cf0  nome \cf3 like '%\cf0 a\cf3 %' ;     \cf2 -----> pode aparecer Amanda , porque o curinga pode ter qualquer letra e essa condi\'e7\'e3o se encaixa nesse requisito.\par
+\cf0\par
+\cf2 % = _   essas s\'e3o as duas cartas curingas , a diferen\'e7a \'e9 que o _ obriga a ter pelo o menos um  character o % pode ser uma character ou nada , numeros atende os dois tamb\'e9m.\par
+\cf0\par
+\par
+\cf1 o outros comando do select:\cf0\par
+\par
+\cf3 select max(\cf0 altura\cf3 ) from \cf0 pessoas\cf3 ;\cf0   \cf2 ----> vai  selecionar a maior altura \par
+\cf0\par
+\cf3 selec min(\cf0 altura\cf3 ) from \cf0 pessoas\cf3 ;\cf0    \cf2 ----> vai  selecionar a menor  altura \cf0\par
+\par
+\cf3 select count(\cf0 nomes\cf3 ) from \cf0 pessoas\cf3 ;\cf2   ----> vai contar quantos nomes que tem na tabela\par
+\cf0\par
+\cf3 select sum(\cf0 anos\cf3 ) from \cf0 cursos\cf3 ;\cf0    \cf2 -----> vai somar os anos da tabela cursos ;\par
+\cf0\par
+\cf3 select distinct \cf0 nacionalidade \cf3 from pessoas \cf0\par
+\cf3 order by \cf0 nacionalidade\cf3 ;\cf2  \cf0    \cf2 ---> vai filtra as nacionalidades e n\'e3o vai mostrar as nacionalidades repetidas. Com o 'order by nacionalidade' vai colocar de ordem alfab\'e9tica.\par
+\cf0\par
+\cf3 select \cf0 nacionalidade\cf3 , count(*) from\cf0  pessoas\par
+\cf3 group by \cf0 nacionalidade  \cf3 ; \cf0  \par
+ \cf2 ----> vai fazer um agrupamento de nacionalidade sendo que s\'e3o iguais ou difetentes e tamb\'e9m com o comando count() podemos saber quantas nacionalidade tem cada grupo ,detro do count() pode ter qualquer coluna.\par
+\cf0\par
+\cf3 select avg(\cf0 salario\cf3 ) from \cf0 funcionarios \par
+\cf3 where\cf0  sexo \cf3 = '\cf0 F\cf3 ' ;    \cf2 ---> esse avg significa a m\'e9dia , no caso do where  ele \'e9 uma condi\'e7\'e3o para que a m\'e9dia seja calculadas dos s\'e1larios das mulheres;\par
+\cf0\par
+\cf3\par
+SELECT * FROM \cf0 clientes\cf3  ;        \cf2 <-  para  mostrar os registros da tabela \par
+\cf3\par
+SELECT \cf0 PRODUTO.PRO_ID \cf3 FROM\cf0  PRODUTO\par
+\cf3 WHERE \cf0 PRODUTO.PRO_ID \cf3 >= 1 AND \cf0 PRODUTO.PRO_ID \cf3 <= 5 ;\par
+\par
+\par
+\cf1 JUNTANDO DUAS TABELAS COM O JOIN = INNER JOIN\par
+\cf3 SELECT * FROM \cf0 PRODUTO\cf3  \par
+JOIN \cf0 GRUPO\cf3  \par
+ON \cf0 PRODUTO.PRO_GRUPO \cf3 =\cf0  GRUPO.GRU_ID \cf2 ;  <- ON OBRIGAT\'d3RIO  PARA N\'c3O DUPLICAR   OS REGISTROS\cf3                                                             \par
+\par
+\cf1 DANDO PRIORIDADE PARA A TABELA  \'c0 ESQUERDA AO JOIN \cf3 :\par
+SELECT * FROM \cf0 PRODUTO\cf3  \par
+LEFT JOIN \cf0 GRUPO\par
+\cf3  ON \cf0 PRODUTO.PRO_GRUPO \cf3 =\cf0  GRUPO.GRU_ID \cf3 ;\par
+\par
+\cf1 DANDO PRIORIDADE PARA A TABELA  \'c0  DIREIRA AO JOIN :\par
+\cf3 SELECT * FROM \cf0 PRODUTO\cf3  \par
+RIGHT JOIN \cf0 GRUPO\cf3  \par
+ON \cf0 PRODUTO.PRO_GRUPO \cf3 =\cf0  GRUPO.GRU_ID \cf3 ;\par
+\par
+\cf1 EU POSSO DAR APELIDO PARA A MINHAS TABELAS :\cf0\par
+\par
+\cf3 SELECT \cf0 CLI.NOME \cf3 ,\cf0  CUR.NOME \cf3 ,\cf0  CUR.ANO\par
+ \cf3 FROM\cf0  CLIENTES \cf3 AS\cf0  CLI \par
+\cf3 INNER JOIN \cf0 CURSOS \cf3 AS\cf0  CUR \par
+\cf3 ON\cf0  CUR.ID \cf3 = \cf0 CLI.CURSO_PREFERIDO\cf3 ; \par
+\par
+\cf2 SEM APELIDOS : \cf3\par
+SELECT \cf0 CLIENTES.NOME \cf3 , \cf0 CURSOS.NOME\cf3  , \cf0 CURSOS.ANO \par
+\cf3 FROM \cf0 CLIENTES\cf3  INNER JOIN \cf0 CURSOS\cf3  \par
+ON \cf0 CURSOS.ID \cf3 = \cf0 CLIENTES.CURSO_PREFERIDO\cf3 ;\cf0\par
+\cf1\par
+\cf0 --------------------------------------------------------------------------------------------------\cf1\par
+******************Cardinalidade  de banco de dados ************************\par
+O primeiro passo \'e9  identifiacar qual \'e9 o relacionamento de entidades exemplos:\par
+ 1 para  1      ou      1 para  n       ou   n para n \par
+1 para 1  : a chave primaria do dominada vai ser enviada para o dominante e assim vai surgir o conceito de chave estrangeita (EXEMPLO) :     Marido  recebe chave prim\'e1ria  de Esposa  \par
+1 para n  :   em regra  pega a chave prim\'e1ria de 1 e  manda para n :  Pai manda a chave prim\'e1ria para os seus filhos.\par
+\par
+n para n :  nesse contexto vai surgir mais uma entidade , e vai seguir a regra de 1 para n :\par
+pessoa 1      n compra n    1 produto \par
+Depois disso segue a regra de 1 para n \par
+-\cf0 ---------------------------------------------------------------------------------------------------------------\cf1\par
+\cf0\par
+\par
+*******Exerc\'edcios select********\par
+\par
+1) Fa\'e7a uma lista com o nome de todas as mulheres.\par
+\par
+R- select nome from pessoas\par
+   where sexo = 'F';\par
+\par
+2) Fa\'e7a uma lista com os dados de todos aqueles que nasceram entre  01/Jan/2000 e 31/Dez/2015.\par
+\par
+R- select * from pessoas\par
+   where ano between '2000' and '2015' ;\par
+\par
+3) Fa\'e7a uma lista com o nome de todos os homens que trabalham como Programadores.\par
+\par
+R- select nome from pessoas \par
+   where sexo = 'M' and profissao = 'Programadores';\par
+\par
+4) Fa\'e7a uma lista com os dados de todas as mulheres que nasceram no Brasil e que t\'eam seu nome iniciando com a letra J.\par
+\par
+R- select * from pessoas\par
+   where sexo = 'F' and nacionalidade = 'Brasil' and nome like 'J%';\par
+\par
+5) Fa\'e7a uma lista com o nome e nacionalidade de todos os homens que t\'eam Silva no nome, n\'e3o nasceram no Brasil e pesam menos de 100 KG.\par
+\par
+R - select nome , nacionalidade from pessoas\par
+    where sexo = 'M' and nome like '&_Silva&' and not nacionalidade 'Brasil' and peso > 100;\par
+\par
+6) Fa\'e7a uma lista que mostra qual \'e9 a maior altura entre os homens que moram no Brasil.\par
+\par
+R- select max(altura) from pessoas\par
+   where sexo = 'M' and nacionalidade 'Brasil';\par
+\par
+7) Fa\'e7a uma lista que mostra qual \'e9 o menor peso entre as meninas que nasceram fora do Brasil e entre 01/01/1990 e 31/12/2000.\par
+\par
+R - select min(peso) from pessoas\par
+    where sexo = 'F' and nacionalidade != 'Brasil' and nascimento between '1990' and '2000';\par
+\par
+8) Fa\'e7a uma lista que mostra quantas mulheres t\'eam mais de 1.90m.\par
+\par
+R- select count(altura) from pessoas\par
+   where sexo = 'F' and altura > '1.90'\par
+\par
+*****Exerc\'edcios de select usando agrupamentos*******\par
+\par
+1) Fa\'e7a uma lista com as profiss\'f5es dos meninos e seus respectivos quantitativos.\par
+\par
+R- select profissao , count(*) from pessoas\par
+   where sexo = 'M'\par
+   group by profissao;\par
+\par
+2) Fa\'e7a uma lista que mostre quantos homens e mulheres nasceram ap\'f3s 01/01/2005\par
+\par
+R - select count(*) from pessoas\par
+    group by sexo\par
+    having (select count(*) from pessoas where nascimento >=  '2005'  );\par
+\cf3\par
+\cf1 ****GENERATOR INCREMENT/TRIGGER PARA CHAMAR ESSE GENERATOR ****\par
+\par
+\cf3 create generator \cf0 INc_Produto \cf3 ;\par
+set generator \cf0 INc_Produto \cf3 to\cf0   9\cf3 ;       \cf2 <--  ESSE NOVE REPRESENTA O SEU \'daLTIMO  N\'daMRO DO CAMPO \cf1 ID, \cf2 VOC\'ca QUE ESCOLHE , E VOC\'ca ESCOLHE O NOME\par
+\cf1\par
+\cf3 set term ^ ;     \cf2 <- no ibexpert n\'e3o precisa colocar essa linha\par
+\cf3 create trigger \cf0 PRODUTO_BI \cf3 for\cf1  \cf0 PRODUTO     \cf2 <- PRODUTO_BI  significa :  B before , I  insert \cf0\par
+\cf3 active before insert position 0                          \cf2 <- FOR  PRODUTO  significa : da tabela  Produto\cf3\par
+as\par
+begin\par
+if (new.\cf0 PRO_ID \cf3 is null) then\cf1\par
+\cf3 new.\cf0 PRO_ID \cf3 = gen_id (\cf0 INC_PRODUTO \cf3 ,1);        \cf2 <- GEN_ID significa o  GENERATOR \cf3\par
+end^     \cf2 <- no ibexpert n\'e3o precisa colocar esse '^'  sinal\cf3\par
+set term ; ^   \cf2 <- no ibexpert n\'e3o precisa colocar essa linha\par
+\cf3\par
+\cf0\par
+\par
+\cf1 ***EXCE\'c7\'c3O/TRIGGER PARA CHAMAR ESSA EXCE\'c7\'c3O\cf0\par
+\cf3 CREATE  EXCEPTION  \cf0 EXC_CLIENTES \cf3 ('\cf0 N\'c3O POSSO APAGAR ESSE CLIENTE\cf3 ');\par
+\cf5\par
+\cf3 set term ^;   \cf2 <- no ibexpert n\'e3o precisa colocar essa linha\par
+\cf3\par
+create trigger \cf5 Exc_ClinteBD \cf3 for \cf5 CLIENTES\cf3\par
+active before delete position 0\par
+as\par
+begin\par
+  if (old.\cf5 ID\cf3  = \cf5 1\cf3 ) then\par
+  exception \cf5 EXC_CLIENTES\cf3 ;\par
+end^    \cf2 <- no ibexpert n\'e3o precisa colocar esse '^'  sinal\cf3\par
+\par
+set term ; ^   \cf2 <- no ibexpert n\'e3o precisa colocar essa linha\par
+\cf3\par
+\cf0\par
+\cf1 ****APAGANDO UMA TRIGGER ****\par
+\cf3 DROP TRIGGER \cf5 TRG_TBLEPG\cf3 ;\par
+\par
+\par
+\cf1 **procedures**\par
+\par
+\cf3\par
+create procedure \cf0 calc_comissao\cf3\par
+(\cf0 servico_indicado \cf3 float , \cf0 seu_salario\cf3  float )     \cf2 <- \cf1 input\par
+\cf3 returns \cf0 (Bonus_comissao \cf3 float , \cf0 salario_final\cf3  float)   \cf2 <- \cf1 output\cf2\par
+\cf3 as\par
+declare variable  \cf0 p\cf3  float;     \cf2 <- assim que declara uma vari\'e1vel \cf1 (local)\par
+\cf3 begin\par
+\par
+   \cf0 p\cf3  = (20\cf2 .\cf3 00/100) ;   \cf2 <- sequiser  retornar um valor decimal tem que colocar ponto na divis\'e3o \par
+\cf3\par
+   \cf5 Bonus_comissao \cf3 =((\cf5 servico_indicado \cf3 + \cf5 seu_salario\cf3 )* \cf5 p\cf3 ) ;\par
+\par
+   \cf5 salario_final \cf3 = (\cf5 seu_salario \cf3 + \cf5 Bonus_comissao\cf3 ) ;\par
+end\par
+\par
+\cf1 /*CLONAR  TABELAS*/\cf3\par
+    CREATE PROCEDURE \cf0 PRC_CLONAR_TBLEPG\cf3\par
+      (\cf0 INTERVALO1\cf3  integer \cf0 , INTERVALO2 \cf3 INTEGER)\par
+    AS\par
+    BEGIN\par
+      INSERT INTO \cf0 CLONAR_TBLEPG\par
+      \cf3 SELECT * FROM \cf0 TBLEPG           \cf2 <- USA O SELECT COMO VALUES\cf0\par
+\cf3       WHERE \cf0 codpesepg\cf3  BETWEEN :\cf0 INTERVALO1 \cf3 AND :\cf0 INTERVALO2\cf3 ;\par
+    END\par
+\par
+\cf0\par
+\cf3\par
+\cf0\par
+\par
+\par
+}
+ 
