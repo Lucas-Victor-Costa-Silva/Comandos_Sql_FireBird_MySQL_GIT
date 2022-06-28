@@ -1,28 +1,27 @@
-# Comando_Sql_FB_MySQL
+ <h1>Comandos FireBird, MySQL, Git</h1>
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-*Índice*
+## Índice
 
-FireBird :   linha   10  até  411  /   MySql    :   linha   415 até  635  /   Git      :   linha   637 até  700  /  Tortoise :   linha   702 até  702
+* FireBird: linha   10  até  411
+* MySql:    linha   415 até  635  
+* Git:      linha   637 até  700  
+* Tortoise: linha   702 até  702
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                   Comando Básicos de Firebird 
+## Comando Básicos de Firebird 
 
+<p>para abrir o terminal , pesquise na lupa no windows : firebird, 
+para fechar o terminal : quit ;</p>
 
-para abrir o terminal , pesquise na lupa no windows : firebird, 
-para fechar o terminal : quit ;
+<h3>conexção com o servidor  do firebird</h3>
+<p>connect 'C:\Users\SAMSUNG\Desktop\FB\EX03.FDB' user 'SYSDBA' password 'masterkey';</p>
 
-****conecção com o servidor  do firebird****
-connect 'C:\Users\SAMSUNG\Desktop\FB\EX03.FDB' user 'SYSDBA' password 'masterkey';
+## Criando uma Banco de dados no Firebird
 
----------------------------------------------------------------------------------------------
-****Criando uma Banco de dados no Firebird**** 
+<p>create database 'C:\Users\SAMSUNG\Desktop\FB\EX03.FDB' user 'SYSDBA' password 'masterkey';</P>
 
-create database 'C:\Users\SAMSUNG\Desktop\FB\EX03.FDB' user 'SYSDBA' password 'masterkey';
-----------------------------------------------------------------------------------------------------------------
-***Criando uma tabela no Firebird***
+## Criando uma tabela no Firebird
 
-CREATE TABLE clientes  (
+<p>CREATE TABLE clientes  (
 id  INTEGER NOT NULL ,
 nome VARCHAR (30)
 );
@@ -32,47 +31,46 @@ ou usando domínios :
 CREATE TABLE CLIENTES (
 nome DM_NOME,
 codigo DM_CODIGO
-);
+);</p>
 
-***APAGANDO UMA TABELA***
+## APAGANDO UMA TABELA
 
-DROP TABLE CLIENTES ;
-----------------------------------------------------------------------------------------------------------------------------------------
-**** Comando   para  ver as tabelas criadas ****
+<p>DROP TABLE CLIENTES;</p>
 
-show table; 
+## Comando   para  ver as tabelas criadas
+
+<p>show table; 
 
 para ver as colunas de uma tabela específica , basta digitar o nome da tabela (OBS: usando uma tabela como exemplo chamada:  clientes) :
 
-show table clientes ;
-----------------------------------------------------------------------------------------------------------------------------------------
-**** COMANDO DE INSERIR REGISTRO NA TABELA ****                                                         
+show table clientes ;</p>
 
-INSERT INTO clientes VALUES
+## COMANDO DE INSERIR REGISTRO NA TABELA                                                         
+
+<p>INSERT INTO clientes VALUES
 (1,'Lucas'); 
-COMMIT;
+COMMIT;</p>
 
-*** APAGANDO REGISTRO DE UMA TABELA ***
+## APAGANDO REGISTRO DE UMA TABELA
 
-DELETE FROM  CLIENTES  
+<p>DELETE FROM  CLIENTES  
 WHERE ID = '1';
 
 OU APAGA TUDO :
 
-DELETE FROM CLIENTES;
+DELETE FROM CLIENTES;</p>
 
-----------------------------------------------------------------------------------------------------------------------------------------
-**** CRIANDO UM DOMÍNIO ****
+## CRIANDO UM DOMÍNIO 
 
-CREATE DOMAIN "DM_NOME" VARCHAR (20) NOT NULL;   <- não pode colocar CONSTRAINT
+<p>CREATE DOMAIN "DM_NOME" VARCHAR (20) NOT NULL;   <em><- não pode colocar CONSTRAINT</em></p>
 
-**** APAGANDO UM DOMÍNIO ****
+## APAGANDO UM DOMÍNIO
 
-DROP DOMAIN "DM_NOME";
+<p>DROP DOMAIN "DM_NOME";</p>
 
-**** CRIAR DOMAIN ****
+## CRIAR DOMAIN
 
-CREATE DOMAIN DMN_NAO_SIM AS
+<p>CREATE DOMAIN DMN_NAO_SIM AS
 CHAR(1) CHARACTER SET WIN1252
 NOT NULL
 CHECK (VALUE IN ('S', 'N'))
@@ -88,25 +86,24 @@ CREATE DOMAIN DMN_FISICA_JURIDICA AS
 CHAR(1) CHARACTER SET WIN1252
 NOT NULL
 CHECK (VALUE IN ('FISICA', 'JURIDICA'))
-COLLATE WIN_PTBR;
+COLLATE WIN_PTBR;</p>
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**** CRIANDO UMA COLUNA ****
+## CRIANDO UMA COLUNA
 
-ALTER TABLE PRODUTOS
- ADD NOME VARCHAR (20) NOT NULL ;
+<p>ALTER TABLE PRODUTOS
+ ADD NOME VARCHAR (20) NOT NULL;</p>
 
-**** APAGANDO UMA COLUNA ****
+## APAGANDO UMA COLUNA
 
- ALTER TABLE PRODUTOS 
-DROP CODIGO ;
+ <p>ALTER TABLE PRODUTOS 
+DROP CODIGO;<p>
 
-**** MODIFICANDO UM TAMANHO DE UMA COLUNA ****
+## MODIFICANDO UM TAMANHO DE UMA COLUNA
 
-OBS: O comando  não será aceito se o novo tamanho for menor que o tamanho atual
+<em>OBS: O comando  não será aceito se o novo tamanho for menor que o tamanho atual</em>
 
-alter table CURSOS
-alter NOME type varchar (30);
+<p>alter table CURSOS
+alter NOME type varchar (30);</p>
 
 **** ALTERANDO UM NOME DE UM CAMPO ****
 
