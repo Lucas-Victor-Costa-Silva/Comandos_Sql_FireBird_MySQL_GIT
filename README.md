@@ -56,7 +56,7 @@ COMMIT;</p>
 <p>DELETE FROM  CLIENTES  
 WHERE ID = '1';
 
-OU APAGA TUDO :
+<em>OU APAGA TUDO :</em>
 
 DELETE FROM CLIENTES;</p>
 
@@ -105,134 +105,122 @@ DROP CODIGO;<p>
 <p>alter table CURSOS
 alter NOME type varchar (30);</p>
 
-**** ALTERANDO UM NOME DE UM CAMPO ****
+## ALTERANDO UM NOME DE UM CAMPO 
 
-ALTER TABLE CURSOS
-ALTER DESCRITION TO DESCRICAO;    --------> INFORMAR QUAL É O NOME ANTIGO ANTES
+<p>ALTER TABLE CURSOS
+ALTER DESCRITION TO DESCRICAO;</p>    <em>-> INFORMAR QUAL É O NOME ANTIGO ANTES</em>
 
-**** ALTERANDO O TYPO DE UM CAMPO  DA TABELA ****
+## ALTERANDO O TYPO DE UM CAMPO  DA TABELA 
 
-ALTER TABLE TBLEPG ALTER COLUMN SEXPES TYPE DMN_SEXO;
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**** ADICIONADO UMA CHAVE  PRIMÁRIA ****
+<p>ALTER TABLE TBLEPG ALTER COLUMN SEXPES TYPE DMN_SEXO;</p>
 
-ALTER TABLE PRODUTOS
-ADD CONSTRAINT PK_CODIGO        --------> nome da sua chave primária 
-PRIMARY KEY (CODIGO);
+## ADICIONADO UMA CHAVE  PRIMÁRIA 
 
-**** APAGANDO UMA CHAVE PRIMÁRIA OU CHAVE ESTRANGEIRA ****
+<p>ALTER TABLE PRODUTOS
+ADD CONSTRAINT PK_CODIGO        <em>-> nome da sua chave primária</em> 
+PRIMARY KEY (CODIGO);</p>
 
-ALTER TABLE PRODUTOS
-DROP CONSTRAINT PK_CODIGO ;
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**** ADICIONANDO UMA CHAVE ESTRANGEIRA A OUTRA TABELA **** 
+## APAGANDO UMA CHAVE PRIMÁRIA OU CHAVE ESTRANGEIRA 
 
-ALTER TABLE PRODUTO 
+<p>ALTER TABLE PRODUTOS
+DROP CONSTRAINT PK_CODIGO;</p>
+
+## ADICIONANDO UMA CHAVE ESTRANGEIRA A OUTRA TABELA  
+
+<p>ALTER TABLE PRODUTO 
 ADD CONSTRAINT FK_PRO_GRUPO 
 FOREIGN KEY (PRO_GRUPO)
-REFERENCES  GRUPO(GRU_ID);         --------> NÃO DEIXE ESPAÇOS , DEIXE JUNTOS
+REFERENCES  GRUPO(GRU_ID);</p>         <em>-> NÃO DEIXE ESPAÇOS , DEIXE JUNTOS</em>
 
-**** APAGANDO UMA CHAVE ESTRANGEIRA ****
+## APAGANDO UMA CHAVE ESTRANGEIRA 
 
-ALTER TABLE CLIENTES 
-DROP CONSTRAINT FK_PRO_GRUPO;     --------> NOME DA CONSTRAINT
+<p>ALTER TABLE CLIENTES 
+DROP CONSTRAINT FK_PRO_GRUPO;</p>     <em>-> NOME DA CONSTRAINT</em>
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**** COMANDO UPDATE ****
+## COMANDO UPDATE
 
-UPDATE  CLIENTES
-SET  CLIENTES.NOME = 'RAINHA'     --------> PARA  ALTERAR UM CAMPO DO REGISTRO;
-WHERE  CLIENTES.ID = '3';
+<p>UPDATE  CLIENTES
+SET  CLIENTES.NOME = 'RAINHA'     <em>-> PARA  ALTERAR UM CAMPO DO REGISTRO;</em>
+WHERE  CLIENTES.ID = '3';</p>
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-*************** SELECT ***************
+## SELECT
 
-DQL
+### DQL
 
-SELECT * FROM CURSOS ;     --------> mostra todos os registros da sua tabela
+<p>SELECT * FROM CURSOS ;     <em>-> mostra todos os registros da sua tabela</em>
 
 SELECT  nome , ano FROM  cursos
-WHERE  ano = '2020'                -------->  filtrar por linha
-ORDER BY  nome DESC ;    --------> mostra o nome , ano , quando os registros forem do ano 2020  e vai ser ordernado  por nome descrecente.
+WHERE  ano = '2020'                <em>->  filtrar por linha</em>
+ORDER BY  nome DESC ;    <em>-> mostra o nome , ano , quando os registros forem do ano 2020  e vai ser ordernado  por nome descrecente.</em>
 
-SELECT ano , nome FROM cursos     -------->  filtra por coluna
+SELECT ano , nome FROM cursos     <em>->  filtra por coluna</em>
 ORDER BY  ano, nome;
 
-podemos usar operadores relacionais no whare também : = , < , > , !=  <> , <=, >= 
+#### podemos usar operadores relacionais no whare também : = , < , > , !=  <> , <=, >= 
 
 SELECT  nome , profissao FROM cursos
 WHERE  nascimento >=  '2022' 
 ORDER BY nome;
 
-
-outros operadores :
-
-
-* between  significa filtra  um número x até y
+#### between  significa filtra  um número x até y
 
 select  ano , nome from cursos
-where ano between '2000' and '2025' ;
+where ano between '2000' and '2025';
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-* in  significa filtra número  x e y e g 
+#### in  significa filtra número  x e y e g 
 
 select ano , nome from cursos
 where ano in ('2000' , '2015' , '2021')
 order by ano , nome;
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-*Eu posso combinar os dois 
+#### Eu posso combinar os dois
 
 selec * from cursos
-where carga < 30 and totaulas > 20 ;     ----> aperadores lógicos:  and = e , or = ou , not = não 
+where carga < 30 and totaulas > 20 ;     <em>-> aperadores lógicos:  and = e , or = ou , not = não</em> 
 
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-* Filtra registros com as letras parecida ou palavras que começa com determinada letra :  like 
+
+#### Filtra registros com as letras parecida ou palavras que começa com determinada letra :  like 
 
 select  *  from cursos
 where nome like 'P%' ;
 
 
-ou eu posso fazer o inverso , filtrar regitros com letrar terminadas com x letras 
+#### ou eu posso fazer o inverso , filtrar regitros com letrar terminadas com x letras 
 
 select nome from cursos
 where nome like '%A' ;  
 
-ou eu posso fazer os dois juntos , obs: essa porcentagem significa carta coringa e ela pode ter qualquer valor ou nenhum : 
+#### ou eu posso fazer os dois juntos , obs: essa porcentagem significa carta coringa e ela pode ter qualquer valor ou nenhum :
 
 select nome from cursos
-where nome like '%a%' ;     --------> pode aparecer Amanda , porque o curinga pode ter qualquer letra e essa condição se encaixa nesse requisito.
+where nome like '%a%' ;     <em>-> pode aparecer Amanda , porque o curinga pode ter qualquer letra e essa condição se encaixa nesse requisito.</em>
 
-% = _   essas são as duas cartas curingas , a diferença é que o _ obriga a ter pelo o menos um  character o % pode ser uma character ou nada , numeros atende os dois também.
+#### % = _   essas são as duas cartas curingas , a diferença é que o _ obriga a ter pelo o menos um  character o % pode ser uma character ou nada, numeros atende os dois também.
 
+select max(altura) from pessoas;   <em>-> vai  selecionar a maior altura</em> 
 
-* o outros comando do select:
+selec min(altura) from pessoas;    <em>-> vai  selecionar a menor  altura</em> 
 
-select max(altura) from pessoas;   --------> vai  selecionar a maior altura 
+select count(nomes) from pessoas;  <em>-> vai contar quantos nomes que tem na tabela</em>
 
-selec min(altura) from pessoas;    --------> vai  selecionar a menor  altura 
-
-select count(nomes) from pessoas;  --------> vai contar quantos nomes que tem na tabela
-
-select sum(anos) from cursos;      --------> vai somar os anos da tabela cursos ;
+select sum(anos) from cursos;      <em>-> vai somar os anos da tabela cursos;</em>
 
 select distinct nacionalidade from pessoas 
-order by nacionalidade;  --> vai filtra as nacionalidades e não vai mostrar as nacionalidades repetidas. Com o 'order by nacionalidade' vai colocar de ordem alfabética.
+order by nacionalidade;  <em>-> vai filtra as nacionalidades e não vai mostrar as nacionalidades repetidas. Com o 'order by nacionalidade' vai colocar de ordem alfabética.</em>
 
 select nacionalidade, count(*) from pessoas
-group by nacionalidade  ;  --> vai fazer um agrupamento de nacionalidade sendo que são iguais ou difetentes e também com o comando count() podemos saber quantas nacionalidade tem cada grupo ,detro do count() pode ter qualquer coluna.
+group by nacionalidade  ;  <em>-> vai fazer um agrupamento de nacionalidade sendo que são iguais ou difetentes e também com o comando count() podemos saber quantas nacionalidade tem cada grupo ,detro do count() pode ter qualquer coluna.</em>
 
 select avg(salario) from funcionarios 
-where sexo = 'F' ;   --> esse avg significa a média , no caso do where  ele é uma condição para que a média seja calculadas dos sálarios das mulheres;
+where sexo = 'F' ;   <em>-> esse avg significa a média , no caso do where  ele é uma condição para que a média seja calculadas dos sálarios das mulheres;</em>
 
 
-SELECT * FROM clientes ;  -------->  para  mostrar os registros da tabela 
+SELECT * FROM clientes ;  <em>->  para  mostrar os registros da tabela</em> 
 
 SELECT PRODUTO.PRO_ID FROM PRODUTO
-WHERE PRODUTO.PRO_ID >= 1 AND PRODUTO.PRO_ID <= 5 ;
+WHERE PRODUTO.PRO_ID >= 1 AND PRODUTO.PRO_ID <= 5;</p>
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **** COMANDOS JOINS ****
